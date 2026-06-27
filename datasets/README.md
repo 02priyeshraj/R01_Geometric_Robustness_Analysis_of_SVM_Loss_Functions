@@ -1,119 +1,99 @@
-# ByteKitchen - A Restaurant Management Backend System
+# Datasets
 
-## Project Overview
+This directory contains the datasets required to reproduce the experiments presented in the accompanying manuscript.
 
-This is a RESTful backend for a Hotel Management System built using Go, MongoDB, JWT Authentication, and Gorilla Mux. It includes features for managing users, tables, menus, food, orders, order items, and invoices.
+## Dataset Overview
 
-## Project Structure Overview
+The experiments use two categories of datasets:
 
+1. **Synthetic datasets**
+2. **Real-world benchmark datasets from the KEEL Repository**
+
+---
+
+## 1. Synthetic Datasets
+
+The synthetic datasets are **not stored in this repository** because they are generated programmatically.
+
+To reproduce the synthetic datasets, run the notebook:
+
+```text
+notebooks/Deviation_Synthetic_SVM.ipynb
 ```
-Restaurant_Management_Backend/
+
+The notebook automatically generates all synthetic datasets used in the experiments, including:
+
+- Clean dataset
+- Uniform label noise
+- Gaussian label noise
+- Feature noise
+- Outlier datasets
+- Combined noise scenarios
+
+No additional downloads are required for the synthetic experiments.
+
+---
+
+## 2. KEEL Benchmark Datasets
+
+The real-world experiments use benchmark datasets obtained from the **KEEL (Knowledge Extraction based on Evolutionary Learning) Repository**.
+
+The following datasets are used:
+
+- Heart Disease
+- Pima Indians Diabetes
+- Ionosphere
+- Sonar (Mines vs. Rocks)
+
+### Standard Datasets
+
+Download the original benchmark datasets from:
+
+https://sci2s.ugr.es/keel/category.php?cat=clas
+
+### Attribute Noise Datasets
+
+The experiments also use the KEEL attribute-noise versions (Noisy Train–Noisy Test protocol with 5% attribute noise).
+
+These datasets can be downloaded from:
+
+https://sci2s.ugr.es/keel/attributeNoise.php
+
+### KEEL Repository
+
+Official KEEL dataset repository:
+
+https://sci2s.ugr.es/keel/datasets.php
+
+---
+
+## Directory Structure
+
+After downloading the datasets, place them in this directory (or update the notebook paths accordingly).
+
+Example:
+
+```text
+datasets/
 │
-├── main.go                  # App entry point
-├── config/                  # DB Configuration
-├── routes/                  # API route registrations
-├── middlewares/             # Auth and other middlewares
-├── controllers/             # Business logic handlers
-├── models/                  # MongoDB schemas & structs
-├── helpers/                 # Utility/helper functions
-├── docs                     # Postman Collection
-├── .env                     # Environment variables
-├── go.mod                   # Go module dependencies
-├── go.sum                   # Version checksum for modules
+├── Heart/
+├── Pima/
+├── Ionosphere/
+└── Sonar/
 ```
 
----
-
-## Prerequisites
-
-Ensure you have the following installed:
-
-- [Go 1.20+](https://golang.org/dl/)
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) or local MongoDB instance
-- Git
+The notebooks assume that the datasets are available locally before execution.
 
 ---
 
-## Setup Instructions
+## Citation
 
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/02priyeshraj/ByteKitchen_Restaurant_Management_Backend_System.git
-cd Restaurant_Management_Backend
-```
-
-### 2. Set up environment variables
-
-Create a `.env` file in the project root:
-
-```bash
-touch .env
-```
-
-Then add the following content:
-
-```env
-export PORT=8080
-export DB= mongo_db_connection_string
-export JWT_SECRET=your_secret_key
-```
+If you use the KEEL datasets in your own research, please cite the original KEEL repository and the corresponding dataset publications as requested by the dataset providers.
 
 ---
 
-### 3. Install Go modules
+## Notes
 
-Make sure you are inside the project directory, then run:
+This repository distributes only the source code used for the experiments.
 
-```bash
-go mod tidy
-```
-
-This will install all required packages listed in `go.mod`.
-
----
-
-### 4. Run the server
-
-```bash
-go run main.go
-```
-
-The server will start on the specified port (default is `8080`):
-
----
-
-Here's the updated **Routes Overview** table based on the routes you provided:
-
----
-
-## Routes Overview
-
-| Route Type                        | Description                                | Auth Required |
-| --------------------------------- | ------------------------------------------ | ------------- |
-| `/users/signup`<br>`/users/login` | User registration and login                | ❌            |
-| `/users/...`                      | User management & logout                   | ✅            |
-| `/tables/...`                     | Table management (CRUD + reserve)          | ✅            |
-| `/menus/...`                      | Menu management (CRUD)                     | ✅            |
-| `/foods/...`                      | Food items CRUD + filter by menu           | ✅            |
-| `/orders/...`                     | Order management (CRUD, status)            | ✅            |
-| `/orderitems/...`                 | Order item control & filtering             | ✅            |
-| `/invoices/...`                   | Invoice CRUD + filter by user/order/status | ✅            |
-
-> See `routes/` and `controllers/` folders for detailed route logic.
-
----
-
-## 📬 API Testing – Postman Collection
-
-You can test all API endpoints using the Postman Collection below:
-
-[Download Postman Collection](./docs/HotelManagement.postman_collection.json)
-
-> Import the collection into Postman and set your environment variables for authentication.
-
----
-
-## Have Suggestions or Issues?
-
-Feel free to open an issue or submit a pull request on GitHub. Let's make Bytekitchen even better together!
+The KEEL datasets remain the property of their respective authors and are available from the official KEEL Repository.

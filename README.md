@@ -1,119 +1,297 @@
-# ByteKitchen - A Restaurant Management Backend System
+# Geometric Robustness Analysis of SVM Loss Functions with Linear Kernels Using Angular Deviation
 
-## Project Overview
+> **Status:** 🟡 Manuscript Under Review
 
-This is a RESTful backend for a Hotel Management System built using Go, MongoDB, JWT Authentication, and Gorilla Mux. It includes features for managing users, tables, menus, food, orders, order items, and invoices.
+---
 
-## Project Structure Overview
+## Overview
 
-```
-Restaurant_Management_Backend/
+This repository contains the complete implementation accompanying the research manuscript:
+
+> **Geometric Robustness Analysis of SVM Loss Functions with Linear Kernels Using Angular Deviation**
+
+The project presents a geometry-driven framework for evaluating the robustness of linear Support Vector Machines (SVMs) under different types of data perturbations. Rather than relying solely on classification accuracy, robustness is quantified using **angular deviation**, a geometric measure that captures the rotation of the decision boundary caused by noise and outliers.
+
+The implementation includes comparative experiments involving three margin-based SVM loss functions—**Hinge Loss**, **Pinball Loss**, and **Eagle Loss**—along with **Extreme Learning Machine (ELM)** as a non-margin-based baseline. Experiments are conducted on both synthetically generated datasets and benchmark datasets from the KEEL Repository under controlled noise settings.
+
+---
+
+# Repository Structure
+
+```text
+.
+├── datasets/
+│   ├── README.md
+│   └── (Download KEEL datasets here)
 │
-├── main.go                  # App entry point
-├── config/                  # DB Configuration
-├── routes/                  # API route registrations
-├── middlewares/             # Auth and other middlewares
-├── controllers/             # Business logic handlers
-├── models/                  # MongoDB schemas & structs
-├── helpers/                 # Utility/helper functions
-├── docs                     # Postman Collection
-├── .env                     # Environment variables
-├── go.mod                   # Go module dependencies
-├── go.sum                   # Version checksum for modules
+├── figures/
+│
+├── notebooks/
+│   ├── Deviation_KEEL_SVM.ipynb
+│   ├── Deviation_Synthetic_SVM.ipynb
+│   ├── ELM.ipynb
+│   ├── Hypothesis_testing.ipynb
+│   └── Loss_functions_plot.ipynb
+│
+├── requirements.txt
+├── LICENSE
+└── README.md
 ```
 
 ---
 
-## Prerequisites
+# Features
 
-Ensure you have the following installed:
-
-- [Go 1.20+](https://golang.org/dl/)
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) or local MongoDB instance
-- Git
+- Geometry-driven robustness analysis using angular deviation.
+- Comparative implementation of Hinge, Pinball, and Eagle loss SVMs.
+- Extreme Learning Machine (ELM) baseline implementation.
+- Synthetic dataset generation under multiple controlled noise conditions.
+- Robustness evaluation on KEEL benchmark datasets.
+- Hyperparameter analysis using heatmaps.
+- Statistical significance analysis using paired t-tests and Wilcoxon signed-rank tests.
+- Publication-quality visualizations for all experimental results.
 
 ---
 
-## Setup Instructions
+# Experimental Workflow
 
-### 1. Clone the repository
+The repository reproduces the complete experimental pipeline described in the manuscript.
+
+1. Visualize the SVM loss functions.
+2. Generate synthetic datasets with controlled perturbations.
+3. Train and evaluate SVM variants under different noise scenarios.
+4. Train and evaluate the ELM baseline.
+5. Perform robustness analysis on KEEL benchmark datasets.
+6. Compute angular deviation for each experiment.
+7. Conduct statistical hypothesis testing.
+8. Generate figures and summary tables.
+
+---
+
+# Notebooks
+
+## 1. Loss_functions_plot.ipynb
+
+Generates the plots of the Hinge, Pinball, and Eagle loss functions used throughout the manuscript.
+
+---
+
+## 2. Deviation_Synthetic_SVM.ipynb
+
+Generates synthetic datasets and evaluates robustness under controlled perturbations.
+
+The notebook includes experiments with:
+
+- Clean datasets
+- Uniform label noise
+- Gaussian label noise
+- Feature noise
+- Outliers
+- Combined noise and outlier scenarios
+
+---
+
+## 3. Deviation_KEEL_SVM.ipynb
+
+Performs robustness analysis on benchmark datasets obtained from the KEEL Repository.
+
+Experiments include:
+
+- Standard datasets
+- Attribute-noise datasets
+- Angular deviation computation
+- Hyperparameter search
+- Heatmap generation
+
+---
+
+## 4. ELM.ipynb
+
+Implements the Extreme Learning Machine (ELM) baseline used for comparison with margin-based SVMs.
+
+The notebook evaluates ELM under both synthetic and KEEL benchmark datasets using the same geometric robustness metric.
+
+---
+
+## 5. Hypothesis_testing.ipynb
+
+Performs the statistical analysis reported in the manuscript.
+
+Implemented statistical tests include:
+
+- Paired t-test
+- Wilcoxon signed-rank test
+
+The notebook compares the robustness of Hinge, Pinball, Eagle, and ELM using angular deviation.
+
+---
+
+# Datasets
+
+The experiments use two categories of datasets.
+
+## Synthetic Datasets
+
+Synthetic datasets are generated programmatically using
+
+```text
+notebooks/Deviation_Synthetic_SVM.ipynb
+```
+
+No external download is required.
+
+---
+
+## KEEL Benchmark Datasets
+
+The real-world experiments use benchmark datasets from the KEEL Repository, including:
+
+- Heart Disease
+- Pima Indians Diabetes
+- Ionosphere
+- Sonar (Mines vs. Rocks)
+
+Both standard datasets and attribute-noise variants are used.
+
+Detailed download instructions are available in:
+
+```text
+datasets/README.md
+```
+
+---
+
+# Installation
+
+Clone the repository:
 
 ```bash
-git clone https://github.com/02priyeshraj/ByteKitchen_Restaurant_Management_Backend_System.git
-cd Restaurant_Management_Backend
+git clone https://github.com/02priyeshraj/R01_Geometric_Robustness_Analysis_of_SVM_Loss_Functions.git
 ```
 
-### 2. Set up environment variables
-
-Create a `.env` file in the project root:
+Move into the repository:
 
 ```bash
-touch .env
+cd R01_Geometric_Robustness_Analysis_of_SVM_Loss_Functions
 ```
 
-Then add the following content:
-
-```env
-export PORT=8080
-export DB= mongo_db_connection_string
-export JWT_SECRET=your_secret_key
-```
-
----
-
-### 3. Install Go modules
-
-Make sure you are inside the project directory, then run:
+Install the required packages:
 
 ```bash
-go mod tidy
+pip install -r requirements.txt
 ```
-
-This will install all required packages listed in `go.mod`.
 
 ---
 
-### 4. Run the server
+# Running the Experiments
+
+Launch Jupyter Notebook:
 
 ```bash
-go run main.go
+jupyter notebook
 ```
 
-The server will start on the specified port (default is `8080`):
+Execute the notebooks in the following order:
+
+1. `Loss_functions_plot.ipynb`
+2. `Deviation_Synthetic_SVM.ipynb`
+3. `Deviation_KEEL_SVM.ipynb`
+4. `ELM.ipynb`
+5. `Hypothesis_testing.ipynb`
 
 ---
 
-Here's the updated **Routes Overview** table based on the routes you provided:
+# Software Requirements
+
+The implementation is developed in Python.
+
+Major dependencies include:
+
+- NumPy
+- Pandas
+- Matplotlib
+- Seaborn
+- SciPy
+- Scikit-learn
+- CVXOPT
+- Tabulate
+- Jupyter Notebook
+
+Complete dependency information is provided in `requirements.txt`.
 
 ---
 
-## Routes Overview
+# Reproducibility
 
-| Route Type                        | Description                                | Auth Required |
-| --------------------------------- | ------------------------------------------ | ------------- |
-| `/users/signup`<br>`/users/login` | User registration and login                | ❌            |
-| `/users/...`                      | User management & logout                   | ✅            |
-| `/tables/...`                     | Table management (CRUD + reserve)          | ✅            |
-| `/menus/...`                      | Menu management (CRUD)                     | ✅            |
-| `/foods/...`                      | Food items CRUD + filter by menu           | ✅            |
-| `/orders/...`                     | Order management (CRUD, status)            | ✅            |
-| `/orderitems/...`                 | Order item control & filtering             | ✅            |
-| `/invoices/...`                   | Invoice CRUD + filter by user/order/status | ✅            |
+This repository is intended to facilitate the reproducibility of the experiments presented in the accompanying manuscript.
 
-> See `routes/` and `controllers/` folders for detailed route logic.
+To reproduce the reported results:
+
+1. Install all required dependencies.
+2. Download the KEEL datasets as described in `datasets/README.md`.
+3. Generate the synthetic datasets using `Deviation_Synthetic_SVM.ipynb`.
+4. Execute the notebooks in the recommended order.
+
+Where applicable, fixed random seeds are used to improve reproducibility.
 
 ---
 
-## 📬 API Testing – Postman Collection
+# Publication Status
 
-You can test all API endpoints using the Postman Collection below:
+This repository accompanies the manuscript:
 
-[Download Postman Collection](./docs/HotelManagement.postman_collection.json)
+**Geometric Robustness Analysis of SVM Loss Functions with Linear Kernels Using Angular Deviation**
 
-> Import the collection into Postman and set your environment variables for authentication.
+The manuscript is currently under peer review.
+
+Publication details, DOI, and citation information will be added after acceptance.
 
 ---
 
-## Have Suggestions or Issues?
+# Authors
 
-Feel free to open an issue or submit a pull request on GitHub. Let's make Bytekitchen even better together!
+### Priyesh Raj
+
+Department of Computer Science and Engineering
+
+Maulana Azad National Institute of Technology (MANIT), Bhopal, India
+
+Email: **[2211201347@stu.manit.ac.in](mailto:2211201347@stu.manit.ac.in)**
+
+---
+
+### Sanyam Shukla
+
+Department of Computer Science and Engineering
+
+Maulana Azad National Institute of Technology (MANIT), Bhopal, India
+
+Email: **[sanyamshukla@manit.ac.in](mailto:sanyamshukla@manit.ac.in)**
+
+---
+
+# Citation
+
+If you use this repository in your research, please cite the associated publication once it becomes publicly available.
+
+Citation details will be updated after publication.
+
+---
+
+# License
+
+This project is licensed under the MIT License.
+
+See the `LICENSE` file for additional details.
+
+---
+
+# Acknowledgements
+
+The real-world datasets used in this work were obtained from the KEEL Repository. We gratefully acknowledge the KEEL project and the original dataset contributors for making these benchmark datasets publicly available.
+
+---
+
+## Contact
+
+For questions, suggestions, or issues regarding this repository, please open a GitHub Issue or contact the corresponding author via email.
